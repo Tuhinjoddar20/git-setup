@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Chat APP</title>
+  </head>
+  <body>
+    <h1>Chatting</h1>
+    <!-- Input to send messages -->
+    <input type="text" id="messageInput" placeholder="Type a message..." />
+    <button id="sendBtn">Send</button>
+    <div id="messages"></div>
+
+    <!-- Socket.IO client script -->
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+      //🔌 Create connection with server
+      const socket = io();
+      const sendBtn = document.getElementById("sendBtn");
+      const messageInput = document.getElementById("messageInput");
+      const allMessages = document.getElementById("messages");
+
+      // 📥 Listen for 'newMessage' event from the server.
+      // server send message to client side.
+      // The event name used in io.emit()(backend)
+      // Must match the event name used in socket.on()(frontend)
+      socket.on("newMessage", (data) => {
+        // console.log("Received from server:", data);
+        const p = document.createElement("p");
+        p.innerText = data;
+        allMessages.appendChild(p);
+      });
+
+      sendBtn.addEventListener("click", (e) => {
+        const message = messageInput.value;
+        console.log(message);
+        if (message.trim() !== "") {
+          // socket : The WebSocket connection (usually from io() on client or server)
+          // .emit() : is a Socket.IO method used to send custom events between the client and server.
+          // "chatMessage" : The event name (you define it)
+          // message : The payload/data you're sending
+          // syntax : socket.emit("eventName", data);
+
+          socket.emit("chatMessage", message);
+          messageInput.value = ""; // clear the input after sending
+        }
+      });
+    </script>
+  </body>
+</html>
