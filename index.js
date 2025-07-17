@@ -13,3 +13,7 @@ function add(a, b) {
 function isAbove18() {
     return age >= 18
 }
+
+function isAbove1() {
+    return age >= 18
+}
