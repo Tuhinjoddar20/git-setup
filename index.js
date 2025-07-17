@@ -17,3 +17,9 @@ function isAbove18() {
 function isAbove1() {
     return age >= 18
 }
+
+
+
+function sub(a, b) {
+    return a - b;
+}
