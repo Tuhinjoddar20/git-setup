@@ -28,3 +28,7 @@ function sub(a, b) {
 function mul(a, b) {
     return a * b;
 }
+
+function mul() {
+    console.log("My name is Tuhin");
+}
